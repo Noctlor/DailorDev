@@ -1,0 +1,45 @@
+/* Cursor parpadeante */
+.cursor {
+  display: inline-block;
+  font-weight: 100;
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Animación suave de aparición para el contenedor */
+:host {
+  display: block;
+}
+
+/* Efecto hover mejorado para el botón */
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:hover::after {
+  width: 300px;
+  height: 300px;
+}
