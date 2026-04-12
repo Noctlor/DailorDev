@@ -1,0 +1,95 @@
+/* Card base styles */
+.project-card {
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.project-card:hover {
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(59, 130, 246, 0.1);
+}
+
+/* Glare effect */
+.card-glare {
+  transition: background 0.15s ease-out;
+  border-radius: inherit;
+}
+
+/* Image zoom on hover */
+.project-card:hover img {
+  transform: scale(1.1);
+}
+
+/* Bottom accent line animation */
+.project-card:hover .hover-line {
+  transform: scaleX(1);
+}
+
+/* Line clamp for description */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Card entrance animation */
+.project-card {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.project-card:nth-child(1) { animation-delay: 0.1s; }
+.project-card:nth-child(2) { animation-delay: 0.2s; }
+.project-card:nth-child(3) { animation-delay: 0.3s; }
+.project-card:nth-child(4) { animation-delay: 0.4s; }
+.project-card:nth-child(5) { animation-delay: 0.5s; }
+.project-card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Overlay gradient on image hover */
+.project-card .relative.h-48:hover .absolute {
+  opacity: 1;
+}
+
+/* Tag hover effect */
+.project-card span[class*="bg-blue-100"]:hover {
+  background-color: rgb(59, 130, 246);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .project-card {
+    /* Disable tilt on mobile for better UX */
+    transform: none !important;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-5px) !important;
+  }
+}
+
+/* Focus state for accessibility */
+.project-card:focus {
+  outline: 2px solid rgb(59, 130, 246);
+  outline-offset: 4px;
+}
+
+/* Image placeholder while loading */
+.project-card img {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}

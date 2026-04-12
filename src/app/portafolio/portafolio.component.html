@@ -1,1 +1,71 @@
-<p>portafolio works!</p>
+<div class="container mx-auto px-4 py-12">
+  <!-- Header -->
+  <div class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">My Projects</h1>
+    <p class="text-gray-600 max-w-2xl mx-auto">
+      A collection of projects I've worked on, showcasing my skills in frontend and backend development.
+    </p>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    
+    <!-- Project Card -->
+    <div 
+      *ngFor="let project of projects"
+      #card
+      class="project-card relative bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer"
+      (mousemove)="onMouseMove($event, card)"
+      (mouseleave)="onMouseLeave(card)"
+      (click)="openProject(project.url)">
+      
+      <!-- Glare Effect Overlay -->
+      <div class="card-glare absolute inset-0 pointer-events-none z-10 rounded-2xl"></div>
+      
+      <!-- Image Container -->
+      <div class="relative h-48 overflow-hidden">
+        <img 
+          [src]="project.image" 
+          [alt]="project.title"
+          class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
+        
+        <!-- Overlay on hover -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
+          <span class="text-white p-4 font-medium flex items-center gap-2">
+            View Project
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </span>
+        </div>
+      </div>
+      
+      <!-- Content -->
+      <div class="p-6">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">{{ project.title }}</h3>
+        <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ project.description }}</p>
+        
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2">
+          <span 
+            *ngFor="let tag of project.tags"
+            class="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded-full">
+            {{ tag }}
+          </span>
+        </div>
+      </div>
+      
+      <!-- Bottom accent line -->
+      <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 transition-transform duration-300 origin-left hover-line"></div>
+    </div>
+
+  </div>
+
+  <!-- Empty State (when no projects) -->
+  <div *ngIf="projects.length === 0" class="text-center py-16">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+    </svg>
+    <p class="text-gray-500 text-lg">No projects yet. Coming soon!</p>
+  </div>
+</div>
