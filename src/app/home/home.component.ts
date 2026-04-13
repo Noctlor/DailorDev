@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy,AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -14,8 +14,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   title = 'Dailor| Dev';
   name = 'Jose San Martin';
   role = 'FullStack Developer';
-
-  // Textos a mostrar con efecto typewriter
+  isMobile = window.innerWidth <= 768;
+  
   displayedGreeting = '';
   displayedIntro = '';
   displayedName = '';
@@ -32,32 +32,39 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
+ ngOnInit(): void {
     this.startTypingAnimation();
+  }
+
+  ngAfterViewInit(): void {
+    this.playVideos();
   }
 
   ngOnDestroy(): void {
     this.timeouts.forEach(timeout => clearTimeout(timeout));
   }
 
+  private playVideos(): void {
+    const videos = document.querySelectorAll<HTMLVideoElement>('.card-video');
+    videos.forEach(video => {
+      video.muted = true;
+      video.play().catch(() => {});
+    });
+  }
+
   private startTypingAnimation(): void {
     const greeting = 'Hi there,';
     const intro = 'I am';
     const name = this.name;
-
     let delay = 0;
     const typingSpeed = 80;
     const pauseBetweenLines = 300;
-
     this.typeText(greeting, 'greeting', delay, typingSpeed);
     delay += greeting.length * typingSpeed + pauseBetweenLines;
-
     this.typeText(intro, 'intro', delay, typingSpeed);
     delay += intro.length * typingSpeed + pauseBetweenLines;
-
     this.typeText(name, 'name', delay, typingSpeed);
     delay += name.length * typingSpeed + pauseBetweenLines;
-
     const timeout = setTimeout(() => {
       this.isTypingComplete = true;
       this.startRoleLoop();
@@ -94,23 +101,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     const deleteSpeed = 40;
     const pauseAfterType = 2000;
     const pauseAfterDelete = 500;
-
     for (let i = 0; i <= currentRole.length; i++) {
       const timeout = setTimeout(() => {
         this.displayedRole = currentRole.substring(0, i);
       }, i * typingSpeed);
       this.timeouts.push(timeout);
     }
-
     const deleteStartDelay = currentRole.length * typingSpeed + pauseAfterType;
-
     for (let i = currentRole.length; i >= 0; i--) {
       const timeout = setTimeout(() => {
         this.displayedRole = currentRole.substring(0, i);
       }, deleteStartDelay + (currentRole.length - i) * deleteSpeed);
       this.timeouts.push(timeout);
     }
-
     const nextRoleDelay = deleteStartDelay + currentRole.length * deleteSpeed + pauseAfterDelete;
     const timeout = setTimeout(() => {
       this.currentRoleIndex = (this.currentRoleIndex + 1) % this.roles.length;

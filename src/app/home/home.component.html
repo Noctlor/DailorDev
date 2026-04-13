@@ -11,7 +11,6 @@
           <span class="block">
             {{ displayedIntro }}<span *ngIf="displayedIntro && !displayedName" class="cursor">|</span>
           </span>
-          <!-- Línea 3: Nombre -->
           <span class="block">
             {{ displayedName }}<span *ngIf="displayedName && !isTypingComplete" class="cursor">|</span>
           </span>
@@ -32,12 +31,20 @@
           <div class="card-container">
             <!-- FRENTE: Roog -->
             <div class="card-face card-front">
-              <img src="assets/img/Roog.png" alt="Roog" class="card-image">
+              <video *ngIf="!isMobile" class="card-image card-video" autoplay loop muted playsinline>
+                <source src="assets/img/Roog.webm" type="video/webm">
+                <source src="assets/img/Roog.mp4" type="video/mp4">
+              </video>
+              <img *ngIf="isMobile" src="assets/img/Roog.png" alt="Roog" class="card-image">
               <div class="card-shine"></div>
             </div>
             <!-- ATRÁS: Madoc -->
             <div class="card-face card-back">
-              <img src="assets/img/Madoc.png" alt="Madoc" class="card-image">
+              <video *ngIf="!isMobile" class="card-image card-video" autoplay loop muted playsinline>
+                <source src="assets/img/Madoc.webm" type="video/webm">
+                <source src="assets/img/Madoc.mp4" type="video/mp4">
+              </video>
+              <img *ngIf="isMobile" src="assets/img/Madoc.png" alt="Madoc" class="card-image">
               <div class="card-shine"></div>
             </div>
           </div>

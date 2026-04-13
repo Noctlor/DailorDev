@@ -62,6 +62,7 @@ button:hover::after {
   border-radius: 16px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  outline: 1px solid transparent;
 }
 .card-front {
   transform: rotateY(0deg);
@@ -75,6 +76,13 @@ button:hover::after {
   object-fit: cover;
   display: block;
   border-radius: 16px;
+}
+/* Desktop: video animado visible, imagen estática oculta */
+.card-video {
+  display: block;
+}
+.card-static {
+  display: none;
 }
 /* Efecto de brillo */
 .card-shine {
@@ -115,5 +123,12 @@ button:hover::after {
   }
   .card-back {
     display: none;
+  }
+  /* Móvil: ocultar video, mostrar imagen */
+  .card-video {
+    display: none;
+  }
+  .card-static {
+    display: block;
   }
 }
