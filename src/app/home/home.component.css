@@ -47,6 +47,12 @@ button:hover::after {
   width: 280px;
   height: 400px;
   perspective: 1000px;
+  filter: drop-shadow(15px 15px 25px rgba(0, 0, 0, 0.3));  /* ← mover aquí */
+  transition: filter 0.8s ease-in-out;
+}
+
+.card-scene:hover {
+  filter: drop-shadow(-15px 15px 25px rgba(0, 0, 0, 0.3));
 }
 
 .card-container {
@@ -56,12 +62,11 @@ button:hover::after {
   transform-style: preserve-3d;
   transition: transform 0.8s ease-in-out;
   transform: rotateY(25deg) rotateX(5deg);
-  filter: drop-shadow(15px 15px 25px rgba(0, 0, 0, 0.3));
+  /* SIN filter aquí */
 }
 
 .card-scene:hover .card-container {
   transform: rotateY(-155deg) rotateX(5deg);
-  filter: drop-shadow(-15px 15px 25px rgba(0, 0, 0, 0.3));
 }
 
 /* ==================== */
