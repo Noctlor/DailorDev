@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -7,7 +7,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit, OnDestroy {
   title = 'Dailor| Dev';
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   
   // Para el rol con efecto de loop (escribe y borra)
   displayedRole = '';
-  roles: string[] = ['FullStack Developer'];
+  roles: string[] = ['FullStack Developer', 'Angular Developer', 'Backend Developer'];
   currentRoleIndex = 0;
   
   // Control de animaciones
@@ -36,7 +37,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Limpiar todos los timeouts al destruir el componente
     this.timeouts.forEach(timeout => clearTimeout(timeout));
   }
 
@@ -46,22 +46,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     const name = this.name;
 
     let delay = 0;
-    const typingSpeed = 80; // ms por letra
-    const pauseBetweenLines = 300; // pausa entre líneas
+    const typingSpeed = 80;
+    const pauseBetweenLines = 300;
 
-    // Escribir "Hi there,"
     this.typeText(greeting, 'greeting', delay, typingSpeed);
     delay += greeting.length * typingSpeed + pauseBetweenLines;
 
-    // Escribir "I am"
     this.typeText(intro, 'intro', delay, typingSpeed);
     delay += intro.length * typingSpeed + pauseBetweenLines;
 
-    // Escribir el nombre
     this.typeText(name, 'name', delay, typingSpeed);
     delay += name.length * typingSpeed + pauseBetweenLines;
 
-    // Iniciar el loop del rol
     const timeout = setTimeout(() => {
       this.isTypingComplete = true;
       this.startRoleLoop();
@@ -96,10 +92,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     const currentRole = this.roles[this.currentRoleIndex];
     const typingSpeed = 60;
     const deleteSpeed = 40;
-    const pauseAfterType = 2000; // Pausa después de escribir
-    const pauseAfterDelete = 500; // Pausa después de borrar
+    const pauseAfterType = 2000;
+    const pauseAfterDelete = 500;
 
-    // Escribir el rol letra por letra
     for (let i = 0; i <= currentRole.length; i++) {
       const timeout = setTimeout(() => {
         this.displayedRole = currentRole.substring(0, i);
@@ -107,7 +102,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.timeouts.push(timeout);
     }
 
-    // Después de escribir, esperar y luego borrar
     const deleteStartDelay = currentRole.length * typingSpeed + pauseAfterType;
 
     for (let i = currentRole.length; i >= 0; i--) {
@@ -117,7 +111,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.timeouts.push(timeout);
     }
 
-    // Pasar al siguiente rol y repetir
     const nextRoleDelay = deleteStartDelay + currentRole.length * deleteSpeed + pauseAfterDelete;
     const timeout = setTimeout(() => {
       this.currentRoleIndex = (this.currentRoleIndex + 1) % this.roles.length;

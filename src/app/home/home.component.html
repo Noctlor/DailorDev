@@ -5,11 +5,9 @@
       <!-- Text Content -->
       <div class="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
         <h2 class="text-4xl md:text-5xl font-bold mb-4">
-          <!-- Línea 1: Hi there, -->
           <span class="block">
             {{ displayedGreeting }}<span *ngIf="!displayedIntro && displayedGreeting" class="cursor">|</span>
           </span>
-          <!-- Línea 2: I am -->
           <span class="block">
             {{ displayedIntro }}<span *ngIf="displayedIntro && !displayedName" class="cursor">|</span>
           </span>
@@ -19,7 +17,6 @@
           </span>
         </h2>
         
-        <!-- Rol con efecto loop -->
         <p class="text-xl mb-6 h-8">
           <span>{{ displayedRole }}</span><span *ngIf="isTypingComplete" class="cursor">|</span>
         </p>
@@ -29,9 +26,22 @@
         </button>
       </div>
 
-      <!-- Image -->
-      <div class="md:w-1/2">
-        <img src="assets/img/Roog.png" class="rounded-lg shadow-lg lg:w-1/2 h-auto sm:w-full">
+      <!-- 3D Flip Card -->
+      <div class="md:w-1/2 flex justify-center">
+        <div class="card-scene">
+          <div class="card-container">
+            <!-- FRENTE: Roog -->
+            <div class="card-face card-front">
+              <img src="assets/img/Roog.png" alt="Roog" class="card-image">
+              <div class="card-shine"></div>
+            </div>
+            <!-- ATRÁS: Madoc -->
+            <div class="card-face card-back">
+              <img src="assets/img/Madoc.png" alt="Madoc" class="card-image">
+              <div class="card-shine"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>

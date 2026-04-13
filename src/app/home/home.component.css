@@ -7,20 +7,15 @@
 }
 
 @keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-/* Animación suave de aparición para el contenedor */
 :host {
   display: block;
 }
 
-/* Efecto hover mejorado para el botón */
+/* Efecto hover para el botón */
 button {
   position: relative;
   overflow: hidden;
@@ -42,4 +37,107 @@ button::after {
 button:hover::after {
   width: 300px;
   height: 300px;
+}
+
+/* ==================== */
+/* 3D FLIP CARD */
+/* ==================== */
+
+.card-scene {
+  width: 280px;
+  height: 400px;
+  perspective: 1000px;
+}
+
+.card-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease-in-out;
+  transform: rotateY(25deg) rotateX(5deg);
+  filter: drop-shadow(15px 15px 25px rgba(0, 0, 0, 0.3));
+}
+
+.card-scene:hover .card-container {
+  transform: rotateY(-155deg) rotateX(5deg);
+  filter: drop-shadow(-15px 15px 25px rgba(0, 0, 0, 0.3));
+}
+
+/* ==================== */
+/* CARAS DE LA CARTA - CON ::ng-deep PARA ANGULAR */
+/* ==================== */
+
+/* Caras de la carta */
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+}
+
+.card-front {
+  z-index: 2;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+:host ::ng-deep .card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Efecto de brillo */
+:host ::ng-deep .card-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card-scene:hover .card-shine {
+  opacity: 1;
+}
+
+/* ==================== */
+/* RESPONSIVE - MOBILE */
+/* ==================== */
+
+@media (max-width: 768px) {
+  .card-scene {
+    width: 220px;
+    height: 320px;
+  }
+  
+  .card-container {
+    transform: none;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+  }
+  
+  .card-scene:hover .card-container {
+    transform: none;
+  }
+  
+  :host ::ng-deep .card-back {
+    display: none;
+  }
 }
