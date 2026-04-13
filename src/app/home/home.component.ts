@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   
   // Para el rol con efecto de loop (escribe y borra)
   displayedRole = '';
-  roles: string[] = ['FullStack Developer', 'Angular Developer', 'Backend Developer'];
+  roles: string[] = ['FullStack Developer'];
   currentRoleIndex = 0;
   
   // Control de animaciones
